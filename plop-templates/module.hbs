@@ -1,0 +1,59 @@
+/**
+ *
+ * {{ properCase name }}
+ * {{#if description.length}}  Description: {{ description }} {{/if}}
+ */
+
+import React, { createContext, useReducer, useContext } from "react";
+
+const {{ properCase name }}Context = createContext({});
+const initialState = {
+  sampleData: ""
+};
+const SAMPLE_ACTION = "SAMPLE_ACTION";
+
+function reducer(state, action) {
+  const { type, sampleData } = action;
+  switch (type) {
+    case SAMPLE_ACTION:
+      return {
+        ...state,
+        sampleData
+      };
+    default:
+      return initialState;
+  }
+}
+
+function {{ properCase name }}Module(props) {
+  const [{{ properCase name }}State, dispatch] = useReducer(reducer, initialState);
+  const {{ properCase name }}ContextValue = { ...props, ...{{ properCase name }}State, dispatch };
+  const value = {{ properCase name }}ContextValue
+  return (
+    <{{ properCase name }}Context.Provider value={value}>
+      <SampleComponent />
+    </{{ properCase name }}Context.Provider>
+  );
+}
+
+function SampleComponent() {
+  const {{ properCase name }}Context = useContext({{ properCase name }}Context);
+  const { dispatch, tasks = [] } = {{ properCase name }}Context;
+
+  function handleClick(data) {
+    dispatch({
+      type: SAMPLE_ACTION,
+      selectedData: data
+    });
+  }
+
+  return (
+    <div onClick={() => handleClick('clicked')}>
+      Click me
+    </div>
+  );
+}
+
+{{ properCase name }}Module.propTypes = {};
+
+export default {{ properCase name }}Module;
