@@ -61,7 +61,7 @@ function ListingHeader() {
 
 function ListingTable() {
   const listingContext = useContext(ListingContext);
-  const { tasks } = listingContext;
+  const { tasks = [] } = listingContext;
 
   return (
     <ul>

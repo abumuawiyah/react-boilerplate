@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useReducer,
-  useState,
-  useEffect
-} from "react";
+import React, { createContext, useContext, useReducer, useState } from "react";
 
 const StatisticModuleContext = createContext({});
 const initialState = {
@@ -38,9 +32,6 @@ function StatisticModule(props) {
     ...statisticModuleState,
     dispatch
   };
-  useEffect(() => {
-    props.setTasks(statisticModuleState.tasks || initialState.tasks);
-  });
 
   return (
     <StatisticModuleContext.Provider value={statisticModuleContextValue}>
