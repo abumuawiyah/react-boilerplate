@@ -11,13 +11,15 @@
     "react-scripts": "3.0.1"
   },
   "devDependencies": {
-    "typescript": "3.3.3"
+    "typescript": "3.3.3",
+    "plop": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cmd": "npx plop"
   },
   "browserslist": [
     ">0.2%",

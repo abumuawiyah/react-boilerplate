@@ -1,0 +1,24 @@
+/**
+ *
+ * {{ properCase name }}
+ * {{#if description.length}}  Description: {{ description }} {{/if}}
+ */
+
+import React, { useState } from "react";
+import {{ properCase module1 }} from "../modules/{{ properCase module1 }}";
+import {{ properCase module2 }} from "../modules/{{ properCase module2 }}";
+
+function {{ properCase name }}() {
+  const [sampleState, setSampleState] = useState(0);
+
+  return (
+    <div>
+      <{{ properCase module1 }} setSampleState={setSampleState} />
+      <{{ properCase module2 }} sampleState={sampleState} />
+    </div>
+  );
+}
+
+{{ properCase name }}.propTypes = {};
+
+export default {{ properCase name }};
