@@ -1,4 +1,11 @@
-import React, { createContext, useContext, useReducer, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useReducer,
+  useState,
+  useMemo,
+  useEffect
+} from "react";
 
 const StatisticModuleContext = createContext({});
 const initialState = {
@@ -12,14 +19,17 @@ const initialState = {
 };
 const TASK_UPDATED = "TASK_UPDATED";
 const NEW_TASK_ADDED = "NEW_TASK_ADDED";
+const STATE_B = "STATE_B";
 
 function reducer(state, action) {
-  const { type, tasks } = action;
+  const { type, tasks, stateB } = action;
   switch (type) {
     case TASK_UPDATED:
       return { ...state, tasks };
     case NEW_TASK_ADDED:
       return { ...state, tasks };
+    case STATE_B:
+      return { ...state, stateB };
     default:
       return initialState;
   }
@@ -43,6 +53,7 @@ function StatisticModule(props) {
           justifyContent: "space-between"
         }}
       >
+        {console.log(statisticModuleState)}
         <Totals />
         <NewTask />
         <TodoList />
@@ -53,11 +64,16 @@ function StatisticModule(props) {
 
 function Totals() {
   const statisticModuleContext = useContext(StatisticModuleContext);
-  const { tasks } = statisticModuleContext;
+  const { tasks, dispatch } = statisticModuleContext;
+
+  function handleClick() {
+    alert("clicked");
+    dispatch({ type: STATE_B, stateB: true });
+  }
 
   return (
     <div style={{ flexBasis: "30%", background: "#4CD7D0" }}>
-      <h3>Total Tasks</h3>
+      <h3 onClick={handleClick}>Total Tasks</h3>
       {tasks.filter(t => !t.isDone).length}
     </div>
   );
@@ -96,6 +112,13 @@ function NewTask() {
 function TodoList() {
   const statisticModuleContext = useContext(StatisticModuleContext);
   const { dispatch, tasks, setTasks } = statisticModuleContext;
+  const memoizedTasks = useMemo(() => {
+    console.log(tasks);
+    return tasks;
+  }, [tasks]);
+  useEffect(() => {
+    console.log("rerender");
+  }, [memoizedTasks]);
 
   function handleClick(task) {
     task.isDone = true;
@@ -114,7 +137,7 @@ function TodoList() {
     <div style={{ flexBasis: "30%", background: "tomato" }}>
       <h3>Tasks</h3>
       <ul>
-        {tasks.map((t, idx) => (
+        {memoizedTasks.map((t, idx) => (
           <li
             key={idx}
             style={{ textDecoration: t.isDone ? "line-through" : "none" }}
